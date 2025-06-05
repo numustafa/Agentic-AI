@@ -33,7 +33,7 @@ A comprehensive roadmap for mastering VSCode with AI-powered development workflo
 
 ### Week 0: Prep
 **Steps (in order):**
-- [ ] Install Docker Desktop + VS Code
+- [ ] Install Docker Desktop + VS Code <br>
         Since I am using WSL on a Windows machine, I will first install Docker Desktop and then enable WSL integration in Docker settings.
 - [ ] Install VS Code extensions: Dev Containers, Python, Jupyter, Continue, Docker, GitLens, LangChain Vis, OpenTelemetry Insight
 - [ ] Create `.devcontainer/` with: `python:3.11`, `node`, `git`, `uv`

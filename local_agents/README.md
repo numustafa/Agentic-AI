@@ -1,6 +1,6 @@
 # VS Code Agentic AI Development Setup
 
-A comprehensive roadmap for mastering VS Code with AI-powered development workflows, from basic setup to advanced agentic systems deployment.
+A comprehensive roadmap for mastering VSCode with AI-powered development workflows, from basic setup to advanced agentic systems deployment.
 
 ## 📋 Essential Extensions Overview
 
@@ -34,6 +34,8 @@ A comprehensive roadmap for mastering VS Code with AI-powered development workfl
 ### Week 0: Prep
 **Steps (in order):**
 - [ ] Install Docker Desktop + VS Code
+        Since I am using WSL on a Windows machine, I will first install Docker Desktop and then enable WSL integration in Docker settings.
+- [ ] Install VS Code extensions: Dev Containers, Python, Jupyter, Continue, Docker, GitLens, LangChain Vis, OpenTelemetry Insight
 - [ ] Create `.devcontainer/` with: `python:3.11`, `node`, `git`, `uv`
 - [ ] Add Dev Containers, Python, Remote-Containers extensions
 

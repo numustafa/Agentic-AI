@@ -33,16 +33,25 @@ A comprehensive roadmap for mastering VSCode with AI-powered development workflo
 
 ### Week 0: Prep
 **Steps (in order):**
-- [ ] Install Docker Desktop + VS Code <br>
-        Since I am using WSL on a Windows machine, I will first install Docker Desktop and then enable WSL integration in Docker settings.
-- [ ] Install VS Code extensions: Dev Containers, Python, Jupyter, Continue, Docker, GitLens, LangChain Vis, OpenTelemetry Insight
-- [ ] Create `.devcontainer/` with: `python:3.11`, `node`, `git`, `uv`
-- [ ] Add Dev Containers, Python, Remote-Containers extensions
+- [✅] Install Docker Desktop + VS Code <br>
+        Since I am using WSL on a Windows machine, I will first install [Docker](https://docs.docker.com/desktop/setup/install/windows-install/) Desktop and then enable WSL integration in Docker settings.
+- [✅] Install VSCode Server in the WSL workspace (`code .`) and complete the extensions stack: Dev Containers, Python, Jupyter, Docker, GitLens. 
+        This way I can use the same VSCode instance in WSL and Windows. Windows VSCode (Client) ←→  VS Code Server (WSL)  (Bridge) ←→  Project Files (Linux filesystem). The VSCode runs on Windows machine, the project files and code run in WSL (Linux) environment, while the VS Code Server runs in WSL to provide the bridge between the two.                        
+- [✅] Create clean `.devcontainer/` with simple Dockerfile: `python:3.11`, `node`, `git`, `uv`
+      Windows Machine
+        └── VS Code (WSL: Ubuntu) ← Same window, enhanced!
+            └── Dev Container ← This runs INSIDE your WSL VS Code
+                ├── Python 3.11 environment
+                ├── Node.js
+                ├── Git & UV tools
+                ├── All extensions auto-installed
+                └── Connection to ollama or vLLM server
+- [✅] Test: Open Project in Dev Container, run `python --version`, `git --version`, `uv --version`
 
 **Core tools mastered:** Dev Containers • uv • Git basics
-**🎯 Outcome:** Repo scaffold + Devcontainer JSON
-
+**🎯 Outcome:** Clean, minimal dev container setup
 ---
+
 
 ### Week 1: Raw LLM API
 **Steps:**

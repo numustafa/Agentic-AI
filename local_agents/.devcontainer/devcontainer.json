@@ -3,6 +3,9 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "runArgs": [
+        "--network=host"
+    ],
   "forwardPorts": [8000, 11434],
   "postCreateCommand": "pip install uv",
   "customizations": {

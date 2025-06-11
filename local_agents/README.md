@@ -2,6 +2,73 @@
 
 A comprehensive roadmap for mastering VSCode with AI-powered development workflows, from basic setup to advanced agentic systems deployment.
 
+## 🎯 Goal and Objectives
+
+### **Primary Goal: Ship a Fully Local AI Agent System**
+Build a production-ready, observable, and secure AI agent that runs entirely on your local machine with **zero cloud dependencies**.
+
+### **Core Objectives:**
+- **🏗️ Architecture Mastery**: Create a complete local AI stack (LLM + Vector DB + Tools + Orchestration)
+- **🔧 VS Code Expertise**: Wield VS Code like a lightsaber with dev containers, extensions, and workflows
+- **📊 Production Standards**: Implement enterprise-grade observability, testing, and security
+- **🛡️ Self-Sufficiency**: Eliminate dependence on cloud providers while maintaining professional quality
+- **🚀 Deployment Ready**: Ship a containerized system that works anywhere
+
+### **Success State After 8 Weeks:**
+```bash
+# Single command deployment of your complete AI agent:
+docker-compose up
+
+# Capabilities unlocked:
+✅ Local ChatGPT-like interface (no API keys needed)
+✅ Tool-calling capabilities (weather, document search, etc.)
+✅ RAG-powered document Q&A system  
+✅ Full observability dashboard (Jaeger + OpenTelemetry)
+✅ Security monitoring and guardrails
+✅ Enterprise-grade testing and CI/CD
+✅ Zero cloud lock-in, 100% controllable
+```
+
+### **Professional Impact:**
+- **Cost Control**: No per-token charges or API rate limits
+- **Privacy**: All data and processing stays on your machine
+- **Customization**: Full control over model behavior and capabilities  
+- **Enterprise-Ready**: Production observability, security, and deployment patterns
+- **Future-Proof**: Foundation for any AI project you build going forward
+
+---
+
+## 🧠 What You're Actually Building
+
+### **Not Just a Weather Bot - A Complete AI Agent Platform**
+
+This project builds a **general-purpose AI agent system** that can handle any task you give it. Weather is just one example tool to demonstrate capabilities.
+
+### **Your Final Agent Will Handle Conversations Like:**
+
+````bash
+💬 You: "What's the weather in Paris and should I pack a jacket?"
+🤖 Agent: 
+   1. 🌤️ Calls weather API for Paris current conditions
+   2. 📊 Analyzes temperature data and precipitation 
+   3. 💡 Provides clothing recommendation based on forecast
+
+💬 You: "Summarize that PDF I uploaded about AI safety"
+🤖 Agent:
+   1. 🔍 Searches your local vector database for the document
+   2. 📝 Finds and retrieves relevant document chunks
+   3. 🧠 Generates comprehensive summary using local LLM
+
+💬 You: "Plan a 3-day trip to Tokyo, check weather and find restaurants"
+🤖 Agent:
+   1. 🌤️ Calls weather API for 3-day Tokyo forecast
+   2. 🔍 Searches your travel documents in RAG system
+   3. 🍜 Queries restaurant database or web search
+   4. 📋 Creates complete itinerary with weather-appropriate activities
+`````
+
+---
+
 ## 📋 Essential Extensions Overview
 
 | Extension | Purpose | Why You Need It |
@@ -17,7 +84,7 @@ A comprehensive roadmap for mastering VSCode with AI-powered development workflo
 
 ## 🔒 Non-Negotiable Workflow Rules
 
-- [ ] **All code in dev-container** — no "works-on-my-machine" bugs
+- [✅] **All code in dev-container** — no "works-on-my-machine" bugs (use `.devcontainer/`)
 - [ ] **Weekly git tag and docker push** — consistent versioning
 - [ ] **≤ 45 min video → write code immediately** (Bootcamp clips only when matching current step)
 - [ ] **Trace everything** — if span missing in Jaeger/Tempo, you're not done
@@ -46,7 +113,22 @@ A comprehensive roadmap for mastering VSCode with AI-powered development workflo
                 ├── Git & UV tools
                 ├── All extensions auto-installed
                 └── Connection to ollama or vLLM server
-- [✅] Test: Open Project in Dev Container, run `python --version`, `git --version`, `uv --version`
+- [✅] Test: Open Project in Dev Container
+        - Open the project folder in VS Code, then run `Ctrl+Shift+P` → "Dev Containers: Reopen in Container"
+        - Wait for the container to build and start
+        - Open a terminal inside the container and run `python --version` to verify Python is set up correctly
+- [✅] Test ollama or vLLM server connection: `curl http://host.docker.internal:11434/v1/models`
+        - Downloaded and installed ollama directly on Windows host machine
+        - Pulled Qwen3 8B parameter model using `ollama run qwen3` (which auto-started ollama service)
+        - Verified ollama was running with `Get-Process ollama` and `netstat -an | findstr 11434`
+        - Tested connection from PowerShell: `curl http://localhost:11434/v1/models` ✅
+        - Initially tried `curl http://localhost:11434/v1/models` from dev container ❌ (failed - localhost refers to container)
+        - Tried `curl http://172.17.0.1:11434/v1/models` from dev container ❌ (failed - ollama bound to 127.0.0.1 only)
+        - Successfully tested `curl http://host.docker.internal:11434/v1/models` from dev container ✅
+        - Confirmed JSON response: `{"object":"list","data":[{"id":"qwen3:latest","object":"model","created":1749224147,"owned_by":"library"}]}`
+        - Updated devcontainer.json with `"runArgs": ["--network=host"]` and `"forwardPorts": [8000, 11434]`
+        - Security verified: Container isolation working, external access blocked ✅
+        - Key insight: Use `host.docker.internal:11434` for dev container → host communication on Windows/WSL
 
 **Core tools mastered:** Dev Containers • uv • Git basics
 **🎯 Outcome:** Clean, minimal dev container setup
@@ -55,7 +137,6 @@ A comprehensive roadmap for mastering VSCode with AI-powered development workflo
 
 ### Week 1: Raw LLM API
 **Steps:**
-- [ ] Install ⚡ ollama or ⚡ vLLM (GPU) as local OpenAI-compatible server
 - [ ] Call it from Python (requests) inside container
 - [ ] Benchmark prompt/latency with ⚡ httpx async
 
@@ -162,8 +243,8 @@ A comprehensive roadmap for mastering VSCode with AI-powered development workflo
 ## 📊 Progress Tracking
 
 ### ✅ Completed Tasks
-- [ ] Week 0: Environment Setup
-- [ ] Week 1: Raw LLM API Integration
+- [✅] Week 0: Environment Setup
+- [✅] Week 1: Raw LLM API Integration
 - [ ] Week 2: Prompt Engineering Mastery
 - [ ] Week 3: Structured Outputs & Tools
 - [ ] Week 4: Vector RAG Implementation
@@ -227,3 +308,22 @@ By completing this roadmap, you will have:
 **Time Investment:** 8 weeks × 7 hours = 56 hours total for Loop A
 **Skill Level:** Beginner → Advanced AI Developer
 **Outcome:** Production-ready, observable, secure AI agent system 🎯
+
+---
+
+## 🏠 Your Local Machine
+├── 🧠 LLM Brain (Qwen3 via Ollama)
+│   └── Core reasoning, conversation, planning
+├── 🔧 Tool Layer (Extensible)
+│   ├── 🌤️ Weather API (FastAPI microservice)
+│   ├── 📚 Document Search (pgvector RAG)
+│   ├── 🌐 Web Search (future)
+│   └── 📧 Email/Calendar (future)
+├── 🤖 Agent Orchestrator (LangGraph)
+│   └── Plans tasks, calls tools, manages workflow
+├── 💾 Memory System (pgvector + embeddings)
+│   └── Remembers conversations, stores knowledge
+├── 📊 Observability Stack (OpenTelemetry + Jaeger)
+│   └── Traces every decision and action
+└── 🛡️ Security Layer (GuardrailsAI)
+    └── Prevents jailbreaks and harmful outputs
